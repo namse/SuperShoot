@@ -1446,7 +1446,7 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 
 			RenderText();
 			g_HUD.OnRender( fElapsedTime );
-			g_SampleUI.OnRender( fElapsedTime );
+			//g_SampleUI.OnRender( fElapsedTime );
 		}
 
 		V( pd3dDevice->EndScene() );
@@ -1474,83 +1474,20 @@ void RenderText()
 	txtHelper.DrawTextLine( DXUTGetFrameStats( DXUTIsVsyncEnabled() ) ); // Show FPS
 	txtHelper.DrawTextLine( DXUTGetDeviceStats() );
 
-	// Draw help
-	if( g_bShowHelp )
-	{
-		txtHelper.SetInsertionPos( 10, pd3dsdBackBuffer->Height - 80 );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 0.75f, 0.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"Controls (F1 to hide):" );
+	txtHelper.SetInsertionPos( 10, pd3dsdBackBuffer->Height - 80 );
+	txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 0.75f, 0.0f, 1.0f ) );
+	
+	wchar_t stageInfomationText[100] = L"";
+	wsprintf( stageInfomationText, L"현재 스테이지 : %d",g_game->GetStageNumber()+1 );
+	txtHelper.DrawTextLine( stageInfomationText );
 
-		txtHelper.SetInsertionPos( 20, pd3dsdBackBuffer->Height - 65 );
-		txtHelper.DrawTextLine( L"Camera control: Left mouse\n"
-			L"Mesh control: Right mouse\n"
-			L"Light control: Middle mouse\n"
-			L"Quit: ESC" );
-	}
-	else
-	{
-		txtHelper.SetInsertionPos( 10, pd3dsdBackBuffer->Height - 25 );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"Press F1 for help" );
-	}
-
-	txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-	if( !( g_bLeftButtonDown || g_bMiddleButtonDown || g_bRightButtonDown ) )
-	{
-		txtHelper.SetInsertionPos( pd3dsdBackBuffer->Width / 2 - 90, pd3dsdBackBuffer->Height - 40 );
-		txtHelper.DrawTextLine( L"\nW/S/A/D/Q/E to move camera." );
-	}
-	else
-	{
-		txtHelper.SetInsertionPos( pd3dsdBackBuffer->Width / 2 - 70, pd3dsdBackBuffer->Height - 40 );
-		if( g_bLeftButtonDown )
-		{
-			txtHelper.DrawTextLine( L"Camera Control Mode" );
-		}
-		else if( g_bMiddleButtonDown )
-		{
-			txtHelper.DrawTextLine( L"Light Control Mode" );
-		}
-		if( g_bRightButtonDown )
-		{
-			txtHelper.DrawTextLine( L"Model Control Mode" );
-		}
-		txtHelper.SetInsertionPos( pd3dsdBackBuffer->Width / 2 - 130, pd3dsdBackBuffer->Height - 25 );
-		txtHelper.DrawTextLine( L"Move mouse to rotate. W/S/A/D/Q/E to move." );
-	}
-
-	if( g_RenderType == RENDERTYPE_COMPLEXITY )
-	{
-		txtHelper.SetInsertionPos( 5, 70 );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"Shadow volume complexity:" );
-		txtHelper.SetInsertionPos( 5, 90 );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 0.0f, 1.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"1 to 5 fills\n" );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 0.0f, 0.0f, 1.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"6 to 10 fills\n" );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 0.0f, 1.0f, 1.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"11 to 20 fills\n" );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 0.0f, 1.0f, 0.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"21 to 30 fills\n" );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 0.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"31 to 40 fills\n" );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 0.5f, 0.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"41 to 50 fills\n" );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 0.0f, 0.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"51 to 70 fills\n" );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"71 or more fills\n" );
-	}
-
-	// Display an error message if unable to generate shadow mesh
-	if( !g_pShadowMesh )
-	{
-		txtHelper.SetInsertionPos( 5, 35 );
-		txtHelper.SetForegroundColor( D3DXCOLOR( 1.0f, 0.0f, 0.0f, 1.0f ) );
-		txtHelper.DrawTextLine( L"Unable to generate closed shadow volume for this mesh\n" );
-		txtHelper.DrawTextLine( L"No shadow will be rendered" );
-	}
+	wchar_t monsterAndCastleInfomationText[100] = L"";
+	wsprintf( monsterAndCastleInfomationText, L"캐슬 HP : %d / %d\n이번 스테이지 몬스터 : %d / %d",
+		g_game->GetCastleHP(), CASTLE_MAX_HP ,
+		g_game->GetAppearedMonsterCount(), g_game->GetNowStageMonsterCount() );
+	
+	txtHelper.SetInsertionPos( 20, pd3dsdBackBuffer->Height - 65 );
+	txtHelper.DrawTextLine( monsterAndCastleInfomationText );
 
 	txtHelper.End();
 }

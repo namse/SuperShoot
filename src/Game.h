@@ -32,6 +32,10 @@ public:
 	Bullet* GetBullet()						{ return &bullet_; }
 	Castle* GetCastle()						{ return castle_; }
 
+	int GetStageNumber()					{ return stage_.GetNowStage();	}
+	int GetCastleHP()						{ return castle_->GetHP();		}
+	int GetAppearedMonsterCount()			{ return stage_.GetAppearedMonsterCount(); }
+	int GetNowStageMonsterCount()			{ return stage_.GetNowStageMonsterCount(); }
 
 private:
 	//STATE : READY

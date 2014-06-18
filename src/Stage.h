@@ -13,7 +13,9 @@ public:
 
 	void Notify(event::EventHeader& event);
 	void Update(float dTime);
-
+	int GetNowStage()			{ return nowStage_; }
+	int GetAppearedMonsterCount()	{ return appearedMonsterCount; }
+	int GetNowStageMonsterCount()	{ return stageInfo_[nowStage_].monsterCount; }
 private:
 	void LoadStageInfo();
 	void nextStage();
