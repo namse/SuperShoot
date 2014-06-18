@@ -81,8 +81,6 @@ void Game::AfterReady()
 
 void Game::BeforeShoot()
 {
-	//camera_.position_ = bullet_.position_;
-	camera_.Follow(bullet_.GetPositionPointer());
 }
 
 void Game::AfterShoot()
@@ -113,6 +111,7 @@ void Game::StartShoot(float x, float y)
 	AfterReady();
 	BeforeShoot();
 	bullet_.Go(x, y);
+	camera_.Follow(bullet_.GetPositionPointer(), x, y);
 	g_game_state_ = SHOOT;
 }
 

@@ -19,11 +19,11 @@ void Camera::SetTopView()
 	lookat_ = CAMERA_INIT_LOOKAT;
 }
 
-void Camera::Follow(D3DVECTOR* target)
+void Camera::Follow(D3DVECTOR* target, float x, float y)
 {
 	follower_ = target;
 	position_ = *follower_;
-	lookat_ = *follower_;
+	lookat_ = D3DXVECTOR3(x,0,y);//*follower_;
 }
 
 void Camera::Update(float dTime)
@@ -36,6 +36,6 @@ void Camera::Update(float dTime)
 		position_.x = (position_.x + follower_->x)/2.f;
 		position_.y = (position_.y + follower_->y)/2.f;
 		position_.z = (position_.z + follower_->z)/2.f;
-		lookat_ = *follower_;
+		//lookat_ = *follower_;
 	}
 }

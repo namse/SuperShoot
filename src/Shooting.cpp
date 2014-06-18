@@ -1308,7 +1308,6 @@ void RenderScene( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime
 void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime, void* pUserContext )
 {
 	g_game->Update(fElapsedTime);
-	//if(g_game_state_ == SHOOT)
 	g_Camera.SetViewParams(&g_game->GetCamera()->position_, &g_game->GetCamera()->lookat_);
 
 	D3DXVECTOR3 bulletPosition;
@@ -1616,54 +1615,6 @@ void CALLBACK KeyboardProc( UINT nChar, bool bKeyDown, bool bAltDown, void* pUse
 void CALLBACK MouseProc( bool bLeftButtonDown, bool bRightButtonDown, bool bMiddleButtonDown, bool bSideButton1Down,
 						bool bSideButton2Down, int nMouseWheelDelta, int xPos, int yPos, void* pUserContext )
 {
-	/*bool bOldLeftButtonDown = g_bLeftButtonDown;
-	bool bOldRightButtonDown = g_bRightButtonDown;
-	bool bOldMiddleButtonDown = g_bMiddleButtonDown;
-	g_bLeftButtonDown = bLeftButtonDown;
-	g_bMiddleButtonDown = bMiddleButtonDown;
-	g_bRightButtonDown = bRightButtonDown;
-
-	if( bOldLeftButtonDown && !g_bLeftButtonDown )
-	{
-	// Disable movement
-	g_Camera.SetEnablePositionMovement( false );
-	}
-	else if( !bOldLeftButtonDown && g_bLeftButtonDown )
-	{
-	// Enable movement
-	g_Camera.SetEnablePositionMovement( true );
-	}
-
-	if( bOldRightButtonDown && !g_bRightButtonDown )
-	{
-	// Disable movement
-	g_MCamera.SetEnablePositionMovement( false );
-	}
-	else if( !bOldRightButtonDown && g_bRightButtonDown )
-	{
-	// Enable movement
-	g_MCamera.SetEnablePositionMovement( true );
-	g_Camera.SetEnablePositionMovement( false );
-	}
-
-	if( bOldMiddleButtonDown && !g_bMiddleButtonDown )
-	{
-	// Disable movement
-	g_LCamera.SetEnablePositionMovement( false );
-	}
-	else if( !bOldMiddleButtonDown && g_bMiddleButtonDown )
-	{
-	// Enable movement
-	g_LCamera.SetEnablePositionMovement( true );
-	g_Camera.SetEnablePositionMovement( false );
-	}
-
-	// If no mouse button is down at all, enable camera movement.
-	if( !g_bLeftButtonDown && !g_bRightButtonDown && !g_bMiddleButtonDown )
-	g_Camera.SetEnablePositionMovement( true );
-	*/
-
-
 	if(bRightButtonDown == true)
 	{
 		Monster* monster = g_game->NewMonster();
@@ -1698,39 +1649,7 @@ void CALLBACK MouseProc( bool bLeftButtonDown, bool bRightButtonDown, bool bMidd
 		D3DXVECTOR3 eye = *(g_Camera.GetEyePt());
 		D3DXVECTOR3 lookat = *(g_Camera.GetLookAtPt());
 		D3DXMATRIX world, view;
-		/*while(1)
-		{
-			eye.x++;	
-			g_Camera.SetViewParams(&eye, &lookat);
-			world = *(g_Camera.GetWorldMatrix());
-			 view = *(g_Camera.GetViewMatrix());
-			
-			eye.y++;	
-			g_Camera.SetViewParams(&eye, &lookat);
-			 world = *(g_Camera.GetWorldMatrix());
-			 view = *(g_Camera.GetViewMatrix());
-			
-			eye.z++;	
-			g_Camera.SetViewParams(&eye, &lookat);
-			 world = *(g_Camera.GetWorldMatrix());
-			 view = *(g_Camera.GetViewMatrix());
 
-			lookat.x++;
-			g_Camera.SetViewParams(&eye, &lookat);
-			 world = *(g_Camera.GetWorldMatrix());
-			 view = *(g_Camera.GetViewMatrix());
-
-			lookat.y++;
-			g_Camera.SetViewParams(&eye, &lookat);
-			 world = *(g_Camera.GetWorldMatrix());
-			 view = *(g_Camera.GetViewMatrix());
-			
-			lookat.z++;
-			g_Camera.SetViewParams(&eye, &lookat);
-			 world = *(g_Camera.GetWorldMatrix());
-			 view = *(g_Camera.GetViewMatrix());
-
-		}*/
 		D3DXMatrixInverse(&matInverse, NULL, &(*(g_Camera.GetWorldMatrix()) * *(g_Camera.GetViewMatrix())));
 		// convert origin and direction into model space
 		D3DXVec3TransformCoord(&origin, &origin, &matInverse);

@@ -13,7 +13,7 @@ public:
 
 	void SetTopView();
 
-	void Follow(D3DVECTOR* target);
+	void Follow(D3DVECTOR* target, float x, float y);
 
 public:
 	D3DXVECTOR3 position_;
