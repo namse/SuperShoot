@@ -1,5 +1,8 @@
 #pragma once
 #include <memory>
+
+namespace event
+{
 enum EventTypes
 {
 	EVENT_NO	= 0,
@@ -10,18 +13,7 @@ enum EventTypes
 	
 	EVENT_STAGE_START,
 	EVENT_FINISH_GAME,
-
-	/*
-	EVENT_LOGIN,
-	EVENT_MOVE,
-	EVENT_MOVE_KEY_CHANGE,
-	EVENT_MOVE_STOP	,
-	EVENT_HP_CHANGE,
-	EVENT_HIT,
-	EVENT_ATTACK_KEY_CHANGE,*/
 } ;
-namespace event
-{
 
 struct EventHeader
 {
@@ -55,7 +47,9 @@ struct StageStartEvent : public EventHeader
 {
 	StageStartEvent(){
 		event_type_ = EVENT_STAGE_START;
+		stageNumber = -1;
 	}
+	int stageNumber;
 };
 
 struct FinishGameEvent : public EventHeader

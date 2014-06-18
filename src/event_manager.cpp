@@ -11,13 +11,13 @@ EventManager::~EventManager(void)
 }
 
 
-void EventManager::AddEventListener(EventTypes event_type, EventListener* pListener)
+void EventManager::AddEventListener(event::EventTypes event_type, EventListener* pListener)
 {
-	event_listener_list.insert( std::pair<EventTypes, EventListener*>(event_type, pListener) );
+	event_listener_list.insert( std::pair<event::EventTypes, EventListener*>(event_type, pListener) );
 }
-void EventManager::RemoveEventListener(EventTypes event_type, EventListener* pListener)
+void EventManager::RemoveEventListener(event::EventTypes event_type, EventListener* pListener)
 {	
-	typedef std::multimap<EventTypes, EventListener*>::iterator iterator;
+	typedef std::multimap<event::EventTypes, EventListener*>::iterator iterator;
 	std::pair<iterator, iterator> iterpair = event_listener_list.equal_range(event_type);
 
 	iterator it = iterpair.first;
@@ -41,7 +41,7 @@ void EventManager::RemoveEventListener(EventListener* pListener)
 
 void EventManager::Notify(event::EventHeader& event)
 {
-	typedef std::multimap<EventTypes, EventListener *>::iterator iterator;
+	typedef std::multimap<event::EventTypes, EventListener *>::iterator iterator;
 	std::pair<iterator, iterator> iterpair = event_listener_list.equal_range(event.event_type_);
 
 	iterator it = iterpair.first;
