@@ -10,6 +10,7 @@ Stage::Stage(void):stageInfo_(NULL)
 
 Stage::~Stage(void)
 {
+	delete[] stageInfo_;
 }
 
 void Stage::LoadStageInfo()
