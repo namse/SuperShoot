@@ -5,6 +5,6 @@ class EventListener
 public:
 	EventListener(void);
 	virtual ~EventListener(void);
-	virtual void Notify(EventHeader& event) = 0;
+	virtual void Notify(event::EventHeader& event) = 0;
 };
 

@@ -11,7 +11,7 @@ public:
 	void AddEventListener(EventTypes event_type, EventListener* pListener);
 	void RemoveEventListener(EventTypes event_type, EventListener* pListener);
 	void RemoveEventListener(EventListener* object_id);
-	void Notify(EventHeader& event);
+	void Notify(event::EventHeader& event);
 
 
 

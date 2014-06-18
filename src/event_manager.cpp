@@ -39,7 +39,7 @@ void EventManager::RemoveEventListener(EventListener* pListener)
 	}
 }
 
-void EventManager::Notify(EventHeader& event)
+void EventManager::Notify(event::EventHeader& event)
 {
 	typedef std::multimap<EventTypes, EventListener *>::iterator iterator;
 	std::pair<iterator, iterator> iterpair = event_listener_list.equal_range(event.event_type_);
