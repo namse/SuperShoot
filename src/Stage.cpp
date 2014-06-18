@@ -9,6 +9,7 @@ Stage::Stage(void):stageInfo_(NULL),totalStageCount_(-1),killedMonsterInThisStag
 	LoadStageInfo();
 
 	g_event_manager->AddEventListener( event::EVENT_MONSTER_DIE, this);
+	g_event_manager->AddEventListener( event::EVENT_START_FIRST_STAGE, this);
 }
 
 
@@ -30,10 +31,15 @@ void Stage::Notify(event::EventHeader& event)
 
 			killedMonsterInThisStage_ ++;
 
-			if( stageInfo_[nowStage_].monsterCount >= killedMonsterInThisStage_ )
+			if( stageInfo_[nowStage_].monsterCount <= killedMonsterInThisStage_ )
 			{
 				nextStage();
 			}
+		}break;
+	case event::EVENT_START_FIRST_STAGE:
+		{
+			nowStage_ = -1;
+			nextStage();
 		}break;
 	}
 }
@@ -42,12 +48,12 @@ void Stage::nextStage()
 {
 	if(nowStage_ == -1)
 	{
-		nowStage_ = 1;
+		nowStage_ = 0;
 	}
 	else
 		nowStage_++;
 
-	if(nowStage_ > totalStageCount_)
+	if(nowStage_ > totalStageCount_ - 1)
 	{
 		finishGame();
 	}
@@ -75,9 +81,8 @@ void Stage::finishGame()
 
 void Stage::Update(float dTime)
 {
-	if(nowStage_ > 0 && nowStage_ <= totalStageCount_)
+	if(nowStage_ >= 0 && nowStage_ < totalStageCount_)
 	{
-
 		if( appearedMonsterCount < stageInfo_[nowStage_].monsterCount )
 		{
 			regenerateDelay -= dTime;

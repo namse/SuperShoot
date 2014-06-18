@@ -1,13 +1,22 @@
 #include "DXUT.h"
 #include "Game.h"
-
+#include "event_manager.h"
 
 Game::Game(void)
 {
+	g_event_manager->AddEventListener(event::EVENT_FINISH_GAME, this);
+	g_event_manager->AddEventListener(event::EVENT_REQUEST_NEW_MONSTER, this);
+	g_event_manager->AddEventListener(event::EVENT_STAGE_START, this);
+
+
 	bullet_ = Bullet();
 	camera_ = Camera();
 	castle_ = Castle();
 	BeforeReady();
+
+	event::StartFirstStage event;
+	event.event_sender_p_ = this;
+	g_event_manager->Notify(event);
 }
 
 
@@ -18,6 +27,41 @@ Game::~Game(void)
 		delete *monster_it;
 	}
 	monster_list_.clear();	
+}
+
+
+void Game::Notify(event::EventHeader& event)
+{
+	switch (event.event_type_)//(EventTypes)
+	{
+	case event::EVENT_NO:
+		break;
+	case event::EVENT_FINISH_GAME:
+		{
+			event::FinishGameEvent& finishEvent = (event::FinishGameEvent &)(event);
+			printf("Finish Game. bye bye!~ \n");
+			PostQuitMessage(WM_QUIT);
+		}break;
+	
+	case event::EVENT_REQUEST_NEW_MONSTER:
+		{
+			event::RequestNewMonsterEvent& requestEvent = (event::RequestNewMonsterEvent &)(event);
+			
+			NewMonster();
+			
+			event::NewMonsterAppearEvent newMonsterEvent;
+			newMonsterEvent.event_sender_p_ = this;
+			g_event_manager->Notify(newMonsterEvent);
+
+		}break;
+	case event::EVENT_STAGE_START:
+		{
+			event::StageStartEvent& startEvent = (event::StageStartEvent &)(event);
+			
+			printf("next Stage! stage : %d\n",startEvent.stageNumber);
+
+		}break;
+	}
 }
 
 void Game::BeforeReady()
@@ -84,12 +128,6 @@ void Game::BulletCollideWithMonster()
 	g_game_state_ = READY;
 	BeforeReady();
 }
-/*
-void Game::NewMonster(IDirect3DDevice9* pd3dDevice)
-{
-	Monster * monster = new Monster(pd3dDevice);
-	monster_list_.push_back(monster);
-}*/
 
 Monster* Game::NewMonster()
 {
@@ -106,6 +144,7 @@ void Game::Update(float dTime)
 {
 	bullet_.Update(dTime);
 	camera_.Update(dTime);
+	stage_.Update(dTime);
 
 	if(bullet_.didCollide_ == true)
 	{
@@ -119,6 +158,9 @@ void Game::Update(float dTime)
 		(*monster_it)->Update(dTime);
 		if((*monster_it)->state_ == DIE)
 		{
+			event::MonsterDieEvent event;
+			event.event_sender_p_ = this;
+			g_event_manager->Notify(event);
 			delete *monster_it;
 			monster_list_.erase(monster_it++);	
 		}
@@ -154,3 +196,4 @@ void Game::Update(float dTime)
 	}
 }
 GAME_STATE g_game_state_ = READY;
+Game * g_game = nullptr;

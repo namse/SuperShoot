@@ -5,12 +5,12 @@
 #include "Monster.h"
 #include <list>
 #include "Stage.h"
-
+#include "event_listener.h"
 enum GAME_STATE{
 	READY,
 	SHOOT
 };
-class Game
+class Game : public EventListener
 {
 public:
 	Game(void);
@@ -22,8 +22,10 @@ public:
 	void ScreenClicked(float x, float y);
 	void BulletCollideWithGround();
 	void BulletCollideWithMonster();
-	//void NewMonster(IDirect3DDevice9* pd3dDevice);
 	Monster* NewMonster();
+
+	
+	void Notify(event::EventHeader& event);
 private:
 	//STATE : READY
 	void BeforeReady();
@@ -42,3 +44,5 @@ public:
 };
 
 extern GAME_STATE g_game_state_;
+
+extern Game * g_game;
