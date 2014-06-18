@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "Monster.h"
 #include <list>
+#include "Stage.h"
 
 enum GAME_STATE{
 	READY,
@@ -35,7 +36,8 @@ public:
 	Camera camera_;
 	Bullet bullet_;
 	Castle castle_;
-
+	Stage stage_;
+	
 	std::list<Monster*> monster_list_;
 };
 
