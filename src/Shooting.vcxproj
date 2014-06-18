@@ -384,8 +384,14 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="event_listener.cpp" />
+    <ClCompile Include="event_manager.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="xmlParser.cpp" />
+    <ClInclude Include="event.h" />
+    <ClInclude Include="event_listener.h" />
+    <ClInclude Include="event_manager.h" />
+    <ClInclude Include="event_parameter.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="xmlParser.h" />
     <None Include="DXUT\Optional\directx.ico" />

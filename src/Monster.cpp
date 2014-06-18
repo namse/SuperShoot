@@ -13,7 +13,7 @@ Monster::Monster(IDirect3DDevice9* pd3dDevice):CModel(pd3dDevice)
 	position_.z = 10.f;
 }*/
 
-Monster::Monster() : radius_(MONSTER_RADIUS), HP(MONSTER_HP_MAX), hasMesh(false)
+Monster::Monster() : radius_(MONSTER_RADIUS), HP(MONSTER_HP_MAX), hasMesh_(false)
 {
 	BeforeMove();
 	target_position_ = new D3DXVECTOR3(0.f, 0.f, 0.f);

@@ -1238,20 +1238,20 @@ void RenderScene( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime
 
 	
 	//monster
-	for( auto monster_it = g_game->monster_list_.begin(); monster_it != g_game->monster_list_.end(); monster_it++ )
+	for( auto monster_it = g_game->GetMonsterList()->begin(); monster_it != g_game->GetMonsterList()->end(); monster_it++ )
 	{
-		if( (*monster_it)->hasMesh == false)
+		if( (*monster_it)->DidInitMesh() == false)
 		{
-			(*monster_it)->mesh_.Create( g_pd3dDevice, DEFMESHFILENAME );
-			(*monster_it)->mesh_.SetVertexDecl( g_pd3dDevice, MESHVERT::Decl );
+			(*monster_it)->GetMesh()->Create( g_pd3dDevice, DEFMESHFILENAME );
+			(*monster_it)->GetMesh()->SetVertexDecl( g_pd3dDevice, MESHVERT::Decl );
 
 			// Compute the scaling matrix for the mesh so that the size of the mesh
 			// that shows on the screen is consistent.c
-			ComputeMeshScaling( (*monster_it)->mesh_, &g_mWorldScaling );
-			(*monster_it)->hasMesh = true;
+			ComputeMeshScaling( *( (*monster_it)->GetMesh() ), &g_mWorldScaling );
+			(*monster_it)->SetInitMeshState(true);
 		}
 		CModelViewerCamera cam;
-		D3DXVECTOR3 eye = (*monster_it)->position_;
+		D3DXVECTOR3 eye = (*monster_it)->GetPosition();
 		D3DXVECTOR3 lookat = D3DXVECTOR3(0.f,0.f,0.1f);
 		
 		cam.SetViewParams(&eye, &eye);
@@ -1275,12 +1275,12 @@ void RenderScene( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime
 		for( UINT p = 0; p < cPasses; ++p )
 		{
 			V( g_pEffect->BeginPass( p ) );
-			ID3DXMesh* pMesh = (*monster_it)->mesh_.GetMesh();
-			for( UINT i = 0; i < (*monster_it)->mesh_.m_dwNumMaterials; ++i )
+			ID3DXMesh* pMesh = (*monster_it)->GetMesh()->GetMesh();
+			for( UINT i = 0; i < (*monster_it)->GetMesh()->m_dwNumMaterials; ++i )
 			{
-				V( g_pEffect->SetVector( "g_vMatColor", ( D3DXVECTOR4* )&(*monster_it)->mesh_.m_pMaterials[i].Diffuse ) );
-				if( (*monster_it)->mesh_.m_pTextures[i] )
-					V( g_pEffect->SetTexture( "g_txScene", (*monster_it)->mesh_.m_pTextures[i] ) )
+				V( g_pEffect->SetVector( "g_vMatColor", ( D3DXVECTOR4* )&(*monster_it)->GetMesh()->m_pMaterials[i].Diffuse ) );
+				if( (*monster_it)->GetMesh()->m_pTextures[i] )
+					V( g_pEffect->SetTexture( "g_txScene", (*monster_it)->GetMesh()->m_pTextures[i] ) )
 				else
 				V( g_pEffect->SetTexture( "g_txScene", g_pDefaultTex ) );
 				// The effect interface queues up the changes and performs them 
@@ -1309,10 +1309,10 @@ void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float f
 {
 	g_game->Update(fElapsedTime);
 	//if(g_game_state_ == SHOOT)
-	g_Camera.SetViewParams(&g_game->camera_.position_, &g_game->camera_.lookat_);
+	g_Camera.SetViewParams(&g_game->GetCamera()->position_, &g_game->GetCamera()->lookat_);
 
 	D3DXVECTOR3 bulletPosition;
-	bulletPosition = g_game->bullet_.position_;
+	bulletPosition = g_game->GetBullet()->GetPosition();
 	g_MCamera.SetViewParams(&bulletPosition, &bulletPosition);
 	// If the settings dialog is being shown, then
 	// render it instead of rendering the app's scene

@@ -6,8 +6,9 @@ class Castle
 public:
 	Castle(void);
 	~Castle(void);
+	D3DVECTOR GetPosition()				{ return position_; }
 
-public:
+private:
 	D3DVECTOR position_;
 	float radius_;
 };

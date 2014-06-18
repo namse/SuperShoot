@@ -26,6 +26,13 @@ public:
 
 	
 	void Notify(event::EventHeader& event);
+
+	std::list<Monster*>* GetMonsterList()	{ return &monster_list_; }
+	Camera* GetCamera()						{ return &camera_; }
+	Bullet* GetBullet()						{ return &bullet_; }
+	Castle* GetCastle()						{ return &castle_; }
+
+
 private:
 	//STATE : READY
 	void BeforeReady();
@@ -34,7 +41,7 @@ private:
 	void BeforeShoot();
 	void AfterShoot();
 
-public:
+
 	Camera camera_;
 	Bullet bullet_;
 	Castle castle_;

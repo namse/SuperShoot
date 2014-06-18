@@ -25,11 +25,23 @@ public:
 	void BeforeMove();
 	void Hit();
 	void BeforeDie();
+
+	CDXUTXFileMesh* GetMesh()		{ return &mesh_; }
+	bool DidInitMesh()				{ return hasMesh_;}
+	void SetInitMeshState(bool state){ hasMesh_ = state; }
+	D3DXVECTOR3 GetPosition()		{ return position_; }
+	float GetRadius()				{ return radius_; }
+	MONSTER_STATE GetState()		{ return state_; }
+private:
+
+	//for moving
+	D3DXVECTOR3* target_position_;
+
 	D3DXVECTOR3 position_;
 	//rotation
 	
 	CDXUTXFileMesh mesh_;
-	bool hasMesh;
+	bool hasMesh_;
 
 	//Collision
 	float radius_;
@@ -38,10 +50,6 @@ public:
 
 	//mesh
 	MONSTER_STATE state_;
-private:
-
-	//for moving
-	D3DXVECTOR3* target_position_;
 	
 };
 

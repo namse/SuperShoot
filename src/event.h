@@ -10,6 +10,7 @@ enum EventTypes
 	EVENT_REQUEST_NEW_MONSTER,
 	EVENT_NEW_MONSTER_APPEAR,
 	EVENT_MONSTER_DIE,
+	EVENT_START_FIRST_STAGE,
 	
 	EVENT_STAGE_START,
 	EVENT_FINISH_GAME,
@@ -56,6 +57,13 @@ struct FinishGameEvent : public EventHeader
 {
 	FinishGameEvent(){
 		event_type_ = EVENT_FINISH_GAME;
+	}
+};
+
+struct StartFirstStage : public EventHeader
+{
+	StartFirstStage(){
+		event_type_ = EVENT_START_FIRST_STAGE;
 	}
 };
 /*

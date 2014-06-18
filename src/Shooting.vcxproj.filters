@@ -42,6 +42,9 @@
     <Filter Include="XMLParser">
       <UniqueIdentifier>{f26e699c-4ad5-4091-ae54-762f928831ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\EventListener">
+      <UniqueIdentifier>{38b1f757-56f5-41a0-8d81-46cc6a6d4966}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="DXUT\Optional\directx.ico">
@@ -131,6 +134,12 @@
       <Filter>XMLParser</Filter>
     </ClCompile>
     <ClCompile Include="Shooting.cpp" />
+    <ClCompile Include="event_manager.cpp">
+      <Filter>Components\EventListener</Filter>
+    </ClCompile>
+    <ClCompile Include="event_listener.cpp">
+      <Filter>Components\EventListener</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ShadowVolume.fx">
@@ -165,9 +174,6 @@
     <ClInclude Include="CAllocateHierarchy.h">
       <Filter>Mdoel\other</Filter>
     </ClInclude>
-    <ClInclude Include="main.h">
-      <Filter>Mdoel</Filter>
-    </ClInclude>
     <ClInclude Include="DerivedStructs.h">
       <Filter>Mdoel\other</Filter>
     </ClInclude>
@@ -180,6 +186,19 @@
     <ClInclude Include="xmlParser.h">
       <Filter>XMLParser</Filter>
     </ClInclude>
+    <ClInclude Include="event_listener.h">
+      <Filter>Components\EventListener</Filter>
+    </ClInclude>
+    <ClInclude Include="event.h">
+      <Filter>Components\EventListener</Filter>
+    </ClInclude>
+    <ClInclude Include="event_parameter.h">
+      <Filter>Components\EventListener</Filter>
+    </ClInclude>
+    <ClInclude Include="event_manager.h">
+      <Filter>Components\EventListener</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>
     <Xml Include="stage.xml">

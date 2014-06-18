@@ -68,8 +68,8 @@ void Game::BeforeReady()
 {
 	camera_.SetTopView();
 	
-	bullet_.position_ = castle_.position_;
-	bullet_.velocity_.x = 0.f, bullet_.velocity_.y = 0.f, bullet_.velocity_.z = 0.f;
+	bullet_.SetPosition(castle_.GetPosition());
+	bullet_.SetVelocity(D3DXVECTOR3(0.f, 0.f, 0.f));
 
 }
 
@@ -81,7 +81,7 @@ void Game::AfterReady()
 void Game::BeforeShoot()
 {
 	//camera_.position_ = bullet_.position_;
-	camera_.Follow(&bullet_.position_);
+	camera_.Follow(bullet_.GetPositionPointer());
 }
 
 void Game::AfterShoot()
@@ -146,7 +146,7 @@ void Game::Update(float dTime)
 	camera_.Update(dTime);
 	stage_.Update(dTime);
 
-	if(bullet_.didCollide_ == true)
+	if(bullet_.DidCollide() == true)
 	{
 		BulletCollideWithGround();
 	}
@@ -156,7 +156,7 @@ void Game::Update(float dTime)
 	while (monster_it != monster_list_.end())
 	{
 		(*monster_it)->Update(dTime);
-		if((*monster_it)->state_ == DIE)
+		if((*monster_it)->GetState() == DIE)
 		{
 			event::MonsterDieEvent event;
 			event.event_sender_p_ = this;
@@ -183,11 +183,11 @@ void Game::Update(float dTime)
 	//Collision TEST
 	for( auto monster_it = monster_list_.begin(); monster_it != monster_list_.end(); monster_it++ )
 	{
-		float dis = distance((*monster_it)->position_, bullet_.position_);
+		float dis = distance((*monster_it)->GetPosition(), bullet_.GetPosition());
 		//printf("dis : %f\n",dis);
 		if( g_game_state_ == SHOOT
-			&& bullet_.didCollide_ == false
-			&& distance((*monster_it)->position_, bullet_.position_) < (*monster_it)->radius_ + bullet_.radius_ )
+			&& bullet_.DidCollide() == false
+			&& distance((*monster_it)->GetPosition(), bullet_.GetPosition()) < (*monster_it)->GetRadius() + bullet_.GetRadius() )
 		{
 			printf("######HITHITHITHITHITHITHITHITHI######\n");
 			(*monster_it)->Hit();
