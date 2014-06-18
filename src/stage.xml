@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--?xml version="1.0" encoding="utf-8"?-->
 <PMML version="3.0"
   xmlns="http://www.dmg.org/PMML-3-0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema_instance" >
   <Stage>
-    <StageInfo stageNumber="1" monsterCount="3" averageRegenerateTime="5" />
-    <StageInfo stageNumber="2" monsterCount="7" averageRegenerateTime="3" />
+    <StageInfo stageNumber="1" monsterCount="3" averageRegenerateTime="4" />
+    <StageInfo stageNumber="2" monsterCount="7" averageRegenerateTime="2" />
   </Stage>
 </PMML>

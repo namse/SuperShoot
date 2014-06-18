@@ -30,7 +30,7 @@ public:
 	std::list<Monster*>* GetMonsterList()	{ return &monster_list_; }
 	Camera* GetCamera()						{ return &camera_; }
 	Bullet* GetBullet()						{ return &bullet_; }
-	Castle* GetCastle()						{ return &castle_; }
+	Castle* GetCastle()						{ return castle_; }
 
 
 private:
@@ -44,7 +44,7 @@ private:
 
 	Camera camera_;
 	Bullet bullet_;
-	Castle castle_;
+	Castle * castle_;
 	Stage stage_;
 	
 	std::list<Monster*> monster_list_;

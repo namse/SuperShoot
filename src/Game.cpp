@@ -11,7 +11,7 @@ Game::Game(void)
 
 	bullet_ = Bullet();
 	camera_ = Camera();
-	castle_ = Castle();
+	castle_ = new Castle();
 	BeforeReady();
 
 	event::StartFirstStage event;
@@ -27,6 +27,7 @@ Game::~Game(void)
 		delete *monster_it;
 	}
 	monster_list_.clear();	
+	delete castle_;
 }
 
 
@@ -68,7 +69,7 @@ void Game::BeforeReady()
 {
 	camera_.SetTopView();
 	
-	bullet_.SetPosition(castle_.GetPosition());
+	bullet_.SetPosition(castle_->GetPosition());
 	bullet_.SetVelocity(D3DXVECTOR3(0.f, 0.f, 0.f));
 
 }
@@ -167,32 +168,36 @@ void Game::Update(float dTime)
 		else 
 			++monster_it;
 	}
-	/*for( auto monster_it = monster_list_.begin(); monster_it != monster_list_.end(); )
-	{
-		(*monster_it)->Update(dTime);
-		if((*monster_it)->state_ == DIE)
-		{
-			delete *monster_it;
-			monster_list_.erase(monster_it);	
-		}
-		else 
-			++monster_it;
-	}*/
-
 
 	//Collision TEST
 	for( auto monster_it = monster_list_.begin(); monster_it != monster_list_.end(); monster_it++ )
 	{
+
+		// MONSTER AND BULLET //
+
 		float dis = distance((*monster_it)->GetPosition(), bullet_.GetPosition());
-		//printf("dis : %f\n",dis);
 		if( g_game_state_ == SHOOT
 			&& bullet_.DidCollide() == false
-			&& distance((*monster_it)->GetPosition(), bullet_.GetPosition()) < (*monster_it)->GetRadius() + bullet_.GetRadius() )
+			&& dis < (*monster_it)->GetRadius() + bullet_.GetRadius() )
 		{
 			printf("######HITHITHITHITHITHITHITHITHI######\n");
 			(*monster_it)->Hit();
 			BulletCollideWithMonster();
 		}
+
+		// MONSTER AND CASTLE
+
+		dis = distance((*monster_it)->GetPosition(), castle_->GetPosition());
+		if( castle_->GetHP() > 0 
+			&& dis < (*monster_it)->GetRadius() + castle_->GetRadius() )
+		{
+			printf("castle Attacked!! \n");
+			(*monster_it)->BeforeDie();
+			event::CastleAttackEvent attackEvent;
+			attackEvent.event_sender_p_ = this;
+			g_event_manager->Notify(attackEvent);
+		}
+
 	}
 }
 GAME_STATE g_game_state_ = READY;
