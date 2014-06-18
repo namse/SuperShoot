@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns:atg="http://atg.xbox.com" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{8e114980-c1a3-4ada-ad7c-83caadf5daeb}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe</Extensions>
+    </Filter>
+    <Filter Include="DXUT">
+      <UniqueIdentifier>{a43c5c25-0e86-4a20-b64a-883785ff74fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{2c3d4c8c-5d1a-459a-a05a-a4e4b608a44e}</UniqueIdentifier>
+      <Extensions>fx;fxh;hlsl</Extensions>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{2b6bcf43-81e9-4a51-a03d-5f355105dbee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Game">
+      <UniqueIdentifier>{15f5eba6-16ab-481e-a3f9-3d2900524a6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Bullet">
+      <UniqueIdentifier>{42652e63-822a-4f10-9395-9e5644ea7258}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Castle">
+      <UniqueIdentifier>{b15945bc-90ca-454a-bfe2-48e029d85c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Camera">
+      <UniqueIdentifier>{6d068702-a002-4370-a8e6-44b833e2c7e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Monster">
+      <UniqueIdentifier>{5664d948-98d0-4b3e-9217-58bfdbc89f9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mdoel">
+      <UniqueIdentifier>{a3812beb-57c0-494a-bcf1-72e13c8c5ded}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Mdoel\other">
+      <UniqueIdentifier>{18c7d32a-23ee-4d0d-855e-56b8f1dfe33e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components\Stage">
+      <UniqueIdentifier>{d67d4471-1653-4cc4-96ad-810a828a09d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="XMLParser">
+      <UniqueIdentifier>{f26e699c-4ad5-4091-ae54-762f928831ba}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DXUT\Optional\directx.ico">
+      <Filter>Resource Files</Filter>
+    </None>
+    <ClInclude Include="DXUT\Core\DXUT.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Core\DXUTenum.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Core\DXUTmisc.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClCompile Include="DXUT\Core\DXUT.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Core\DXUTenum.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Core\DXUTmisc.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClInclude Include="DXUT\Optional\DXUTcamera.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTgui.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTres.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\DXUTsettingsdlg.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKmesh.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClInclude Include="DXUT\Optional\SDKmisc.h">
+      <Filter>DXUT</Filter>
+    </ClInclude>
+    <ClCompile Include="DXUT\Optional\DXUTcamera.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTgui.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTres.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\DXUTsettingsdlg.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKmesh.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+    <ClCompile Include="DXUT\Optional\SDKmisc.cpp">
+      <Filter>DXUT</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Components\Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Castle.cpp">
+      <Filter>Components\Castle</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Components\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Components\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Components\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="CModel.cpp">
+      <Filter>Mdoel</Filter>
+    </ClCompile>
+    <ClCompile Include="CAllocateHierarchy.cpp">
+      <Filter>Mdoel\other</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Components\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="xmlParser.cpp">
+      <Filter>XMLParser</Filter>
+    </ClCompile>
+    <ClCompile Include="Shooting.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ShadowVolume.fx">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CLInclude Include="resource.h">
+      <Filter>Resource Files</Filter>
+    </CLInclude>
+    <ResourceCompile Include="ShadowVolume.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ClInclude Include="Game.h">
+      <Filter>Components\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Components\Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Castle.h">
+      <Filter>Components\Castle</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Components\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="CModel.h">
+      <Filter>Mdoel</Filter>
+    </ClInclude>
+    <ClInclude Include="CAllocateHierarchy.h">
+      <Filter>Mdoel\other</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>Mdoel</Filter>
+    </ClInclude>
+    <ClInclude Include="DerivedStructs.h">
+      <Filter>Mdoel\other</Filter>
+    </ClInclude>
+    <ClInclude Include="Macros.h">
+      <Filter>Mdoel\other</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Components\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="xmlParser.h">
+      <Filter>XMLParser</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="stage.xml">
+      <Filter>Components\Stage</Filter>
+    </Xml>
+  </ItemGroup>
+</Project>
