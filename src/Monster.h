@@ -6,13 +6,14 @@
 #define MONSTER_RADIUS 0.5f
 #define MONSTER_HP_MAX 2
 #define MONSTER_HIT_DAMAGE 1
+#include "event_listener.h"
 enum MONSTER_STATE
 {
 	IDLE,
 	MOVE,
 	DIE,
 };
-class Monster// : public CModel
+class Monster
 {
 public:
 	//Monster(IDirect3DDevice9* pd3dDevice);
@@ -28,6 +29,7 @@ public:
 	//rotation
 	
 	CDXUTXFileMesh mesh_;
+	bool hasMesh;
 
 	//Collision
 	float radius_;

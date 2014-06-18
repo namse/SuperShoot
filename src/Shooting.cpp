@@ -9,8 +9,7 @@
 
 #include "Game.h"
 #include "Monster.h"
-
-Game g_game;
+#include "event_manager.h"
 
 //https://www.facebook.com/photo.php?v=423839411051754&set=o.132468483587501&type=3&theater
 
@@ -622,8 +621,10 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
 	_CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 #endif
 
-	g_game = Game();
-	g_Camera.game_ = &g_game;
+	g_event_manager = new EventManager();
+	
+	g_game = new Game();
+	g_Camera.game_ = g_game;
 	// Set the callback functions. These functions allow DXUT to notify
 	// the application about device changes, user input, and windows messages.  The 
 	// callbacks are optional so you need only set callbacks for events you're interested 
@@ -684,6 +685,8 @@ INT WINAPI wWinMain( HINSTANCE, HINSTANCE, LPWSTR, int )
 	// Perform any application-level cleanup here. Direct3D device resources are released within the
 	// appropriate callback functions and therefore don't require any cleanup code here.
 
+	delete g_event_manager;
+	delete g_game;
 	return DXUTGetExitCode();
 }
 
@@ -1235,8 +1238,18 @@ void RenderScene( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime
 
 	
 	//monster
-	for( auto monster_it = g_game.monster_list_.begin(); monster_it != g_game.monster_list_.end(); monster_it++ )
+	for( auto monster_it = g_game->monster_list_.begin(); monster_it != g_game->monster_list_.end(); monster_it++ )
 	{
+		if( (*monster_it)->hasMesh == false)
+		{
+			(*monster_it)->mesh_.Create( g_pd3dDevice, DEFMESHFILENAME );
+			(*monster_it)->mesh_.SetVertexDecl( g_pd3dDevice, MESHVERT::Decl );
+
+			// Compute the scaling matrix for the mesh so that the size of the mesh
+			// that shows on the screen is consistent.c
+			ComputeMeshScaling( (*monster_it)->mesh_, &g_mWorldScaling );
+			(*monster_it)->hasMesh = true;
+		}
 		CModelViewerCamera cam;
 		D3DXVECTOR3 eye = (*monster_it)->position_;
 		D3DXVECTOR3 lookat = D3DXVECTOR3(0.f,0.f,0.1f);
@@ -1294,12 +1307,12 @@ void RenderScene( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime
 //--------------------------------------------------------------------------------------
 void CALLBACK OnFrameRender( IDirect3DDevice9* pd3dDevice, double fTime, float fElapsedTime, void* pUserContext )
 {
-	g_game.Update(fElapsedTime);
+	g_game->Update(fElapsedTime);
 	//if(g_game_state_ == SHOOT)
-	g_Camera.SetViewParams(&g_game.camera_.position_, &g_game.camera_.lookat_);
+	g_Camera.SetViewParams(&g_game->camera_.position_, &g_game->camera_.lookat_);
 
 	D3DXVECTOR3 bulletPosition;
-	bulletPosition = g_game.bullet_.position_;
+	bulletPosition = g_game->bullet_.position_;
 	g_MCamera.SetViewParams(&bulletPosition, &bulletPosition);
 	// If the settings dialog is being shown, then
 	// render it instead of rendering the app's scene
@@ -1653,14 +1666,7 @@ void CALLBACK MouseProc( bool bLeftButtonDown, bool bRightButtonDown, bool bMidd
 
 	if(bRightButtonDown == true)
 	{
-		Monster* monster = g_game.NewMonster();
-
-		monster->mesh_.Create( g_pd3dDevice, DEFMESHFILENAME );
-		monster->mesh_.SetVertexDecl( g_pd3dDevice, MESHVERT::Decl );
-
-		// Compute the scaling matrix for the mesh so that the size of the mesh
-		// that shows on the screen is consistent.c
-		ComputeMeshScaling( monster->mesh_, &g_mWorldScaling );
+		Monster* monster = g_game->NewMonster();
 	}
 	if(bLeftButtonDown == true)
 	{
@@ -1742,7 +1748,7 @@ void CALLBACK MouseProc( bool bLeftButtonDown, bool bRightButtonDown, bool bMidd
 
 		if(g_game_state_ == READY)
 		{
-			g_game.ScreenClicked(from.x, from.z);
+			g_game->ScreenClicked(from.x, from.z);
 		}
 
 	}
