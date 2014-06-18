@@ -2,6 +2,7 @@ SuperShoot
 ==========
 
 NHN NEXT 4th semester game making project
+
 몬스터가 캐슬을 부시지 못하도록 미사일을 발사하세요!
 
 1. 왼쪽 클릭으로 클릭 위치에 미사일 발사!
