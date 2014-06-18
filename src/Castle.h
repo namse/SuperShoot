@@ -1,6 +1,6 @@
 #pragma once
 #include "event_listener.h"
-#define CASTLE_RADIUS 3.f
+#define CASTLE_RADIUS 1.f
 #define CASTLE_MAX_HP 3
 class Castle : EventListener
 {
